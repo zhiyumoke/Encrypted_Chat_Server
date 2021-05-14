@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jilei.springserverdemo.mapper.UserMapper">
+
+    <resultMap id="UserResultMap" type="jilei.springserverdemo.entity.User">
+        <id column="username" jdbcType="VARCHAR" property="username"/>
+        <result column="password" jdbcType="VARCHAR" property="password"/>
+        <result column="image" jdbcType="BLOB" property="image"/>
+    </resultMap>
+
+    <select id="QueryUser" resultType="jilei.springserverdemo.entity.User">
+        select *
+        from user
+        where username = #{username};
+    </select>
+
+    <insert id="InsertUser" parameterType="jilei.springserverdemo.entity.User">
+        insert into user(username, password, image)
+        values (#{username}, #{password}, #{image});
+    </insert>
+
+    <select id="QueryFriends" resultType="jilei.springserverdemo.entity.User">
+        select *
+        from user
+        where user.username in (select username2
+                                from friend
+                                where friend.username1 = #{username});
+
+    </select>
+
+
+</mapper>

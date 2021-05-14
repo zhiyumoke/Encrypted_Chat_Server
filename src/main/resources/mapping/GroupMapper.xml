@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jilei.springserverdemo.mapper.GroupMapper">
+
+    <resultMap id="GroupResultMap" type="jilei.springserverdemo.entity.Group">
+        <id column="id" jdbcType="VARCHAR" property="id"/>
+        <result column="groupname" jdbcType="VARCHAR" property="groupname"/>
+        <result column="image" jdbcType="BLOB" property="imgae"/>
+    </resultMap>
+
+    <insert id="InsertGroup" parameterType="jilei.springserverdemo.entity.Group">
+        insert into thegroups(id, groupname, image)
+        values (#{id}, #{groupname}, #{image});
+    </insert>
+
+    <insert id="InsertGroupUser">
+        insert into group_user(id, username)
+        VALUES (#{id}, #{username});
+    </insert>
+
+    <select id="QueryGroup" resultType="jilei.springserverdemo.entity.Group">
+        select *
+        from thegroups
+        where thegroups.id in (
+            select id
+            from group_user
+            where group_user.username = #{username});
+    </select>
+</mapper>
