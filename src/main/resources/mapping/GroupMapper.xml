@@ -18,6 +18,17 @@
         VALUES (#{id}, #{username});
     </insert>
 
+    <insert id="InsertGroupKey">
+        insert into group_key(id, `key`, iv)
+        VALUES (#{id}, #{key}, #{iv});
+    </insert>
+
+    <select id="QueryKeyByGroupId" resultType="jilei.springserverdemo.entity.GroupKey">
+        select *
+        from group_key
+        where id = #{id};
+    </select>
+
     <select id="QueryGroup" resultType="jilei.springserverdemo.entity.Group">
         select *
         from thegroups
@@ -26,4 +37,5 @@
             from group_user
             where group_user.username = #{username});
     </select>
+
 </mapper>

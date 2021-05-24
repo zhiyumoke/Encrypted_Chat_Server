@@ -1,14 +1,16 @@
 package jilei.springserverdemo;
 
-import jilei.springserverdemo.entity.Group;
+import jilei.springserverdemo.security.AES;
 
-import java.util.Random;
-import java.util.UUID;
+import javax.crypto.SecretKey;
 
 public class Test {
     public static void main(String[] args) {
-        String uuid=UUID.randomUUID().toString();
-        System.out.println(uuid);
-        System.out.println(uuid.length());
+        SecretKey key= AES.GenerateAESKey(128);
+        byte[] iv=AES.GenerateAESIv();
+        String keyStr=AES.SecretKeyToString(key);
+        String ivStr=AES.IvToString(iv);
+        System.out.println(keyStr);
+        System.out.println(ivStr);
     }
 }

@@ -28,5 +28,10 @@
 
     </select>
 
+    <insert id="InsertFriend">
+        insert into friend(username1, username2)
+        values (#{myUsername}, #{hisUsername});
+    </insert>
+
 
 </mapper>

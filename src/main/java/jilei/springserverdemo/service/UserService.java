@@ -19,7 +19,13 @@ public class UserService {
     public void InsertUser(User user) {
         userMapper.InsertUser(user);
     }
-    public List<User> QueryFriends(String username){
+
+    public List<User> QueryFriends(String username) {
         return userMapper.QueryFriends(username);
+    }
+
+    public void InsertFriend(String myUsername, String hisUsername) {
+        userMapper.InsertFriend(myUsername, hisUsername);
+        userMapper.InsertFriend(hisUsername, myUsername);
     }
 }

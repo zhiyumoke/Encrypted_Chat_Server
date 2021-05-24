@@ -1,12 +1,13 @@
 package jilei.springserverdemo.controller;
 
-import com.alibaba.fastjson.JSONObject;
 import org.eclipse.paho.client.mqttv3.*;
 import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.Arrays;
 import java.util.Map;
 
 @Controller
@@ -22,36 +23,9 @@ public class MqttController {
         Subscribe("Server");
     }
 
-//    @RequestMapping(value = "/MqttPublishMessage")
-//    @ResponseBody
-//    public String doPublish(@RequestBody String json){
-//        JSONObject jsonObject=JSONObject.parseObject(json);
-//        String topic=jsonObject.getString("topic");
-//        String message=jsonObject.getString("message");
-//
-//        try {
-//            mqttClient=new MqttClient(MQTT_HOST,MQTT_CLIENTID,new MemoryPersistence());
-//        } catch (MqttException e) {
-//            e.printStackTrace();
-//        }
-//        Connect(topic);
-//        mqttMessage = new MqttMessage();
-//        mqttMessage.setQos(2);
-//        mqttMessage.setRetained(true);
-//        mqttMessage.setPayload(message.getBytes());
-//
-//        try {
-//            Publish(mqttTopic,mqttMessage);
-//        } catch (MqttException e) {
-//            e.printStackTrace();
-//        }
-//        return "已发送";
-//    }
-
     @RequestMapping(value = "/MqttPublishJsonObject",method = RequestMethod.POST)
     @ResponseBody
     public String doPublish(@RequestParam Map<String,String> map){
-        System.out.println(map);
         String topic=map.get("topic");
         String message=map.get("message");
         MqttMessage mqttMessage=new MqttMessage();
